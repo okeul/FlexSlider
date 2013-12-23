@@ -212,7 +212,7 @@
           if (slider.pagingCount > 1) {
             for (var i = 0; i < slider.pagingCount; i++) {
               slide = slider.slides.eq(i);
-              item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"/>' : '<a>' + j + '</a>';
+              item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"/>' : '<button>' + j + '</button>';
               if ( 'thumbnails' === slider.vars.controlNav && true === slider.vars.thumbCaptions ) {
                 var captn = slide.attr( 'data-thumbcaption' );
                 if ( '' != captn && undefined != captn ) item += '<span class="' + namespace + 'caption">' + captn + '</span>';
@@ -228,7 +228,7 @@
 
           methods.controlNav.active();
 
-          slider.controlNavScaffold.delegate('a, img', eventType, function(event) {
+          slider.controlNavScaffold.delegate('button, img', eventType, function(event) {
             event.preventDefault();
 
             if (watchedEvent === "" || watchedEvent === event.type) {
@@ -274,7 +274,7 @@
           });
         },
         set: function() {
-          var selector = (slider.vars.controlNav === "thumbnails") ? 'img' : 'a';
+          var selector = (slider.vars.controlNav === "thumbnails") ? 'img' : 'button';
           slider.controlNav = $('.' + namespace + 'control-nav li ' + selector, (slider.controlsContainer) ? slider.controlsContainer : slider);
         },
         active: function() {
@@ -294,15 +294,15 @@
       },
       directionNav: {
         setup: function() {
-          var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li><a class="' + namespace + 'prev" href="#">' + slider.vars.prevText + '</a></li><li><a class="' + namespace + 'next" href="#">' + slider.vars.nextText + '</a></li></ul>');
+          var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li><button class="' + namespace + 'prev" href="#">' + slider.vars.prevText + '</button></li><li><button class="' + namespace + 'next" href="#">' + slider.vars.nextText + '</button></li></ul>');
 
           // CONTROLSCONTAINER:
           if (slider.controlsContainer) {
             $(slider.controlsContainer).append(directionNavScaffold);
-            slider.directionNav = $('.' + namespace + 'direction-nav li a', slider.controlsContainer);
+            slider.directionNav = $('.' + namespace + 'direction-nav li button', slider.controlsContainer);
           } else {
             slider.append(directionNavScaffold);
-            slider.directionNav = $('.' + namespace + 'direction-nav li a', slider);
+            slider.directionNav = $('.' + namespace + 'direction-nav li button', slider);
           }
 
           methods.directionNav.update();
@@ -872,8 +872,8 @@
           // clear out old clones
           if (type !== "init") slider.container.find('.clone').remove();
           slider.container.append(slider.slides.first().clone().addClass('clone').attr('aria-hidden', 'true')).prepend(slider.slides.last().clone().addClass('clone').attr('aria-hidden', 'true'));
-		      methods.uniqueID( slider.slides.first().clone().addClass('clone') ).appendTo( slider.container );
-		      methods.uniqueID( slider.slides.last().clone().addClass('clone') ).prependTo( slider.container );
+          methods.uniqueID( slider.slides.first().clone().addClass('clone') ).appendTo( slider.container );
+          methods.uniqueID( slider.slides.last().clone().addClass('clone') ).prependTo( slider.container );
         }
         slider.newSlides = $(slider.vars.selector, slider);
 
@@ -1064,7 +1064,7 @@
     // Usability features
     pauseOnAction: true,            //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
     pauseOnHover: false,            //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
-    pauseInvisible: true,   		//{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
+    pauseInvisible: true,       //{NEW} Boolean: Pause the slideshow when tab is invisible, resume when visible. Provides better UX, lower CPU usage.
     useCSS: true,                   //{NEW} Boolean: Slider will use CSS3 transitions if available
     touch: true,                    //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
     video: false,                   //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
